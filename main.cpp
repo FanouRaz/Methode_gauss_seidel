@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const float EPSILON = pow(10,-6);
+const float EPSILON = pow(10,-7);
 /*
     Factorisation de Cholesky d'une matrice A symétrique définie positive.
     ie décomposer A sous forme A = B*(B)t
@@ -125,16 +125,22 @@ void gaussSeidel(vector<vector<float>> A,vector<float> b){
     initialisationResidu(r,x,A,b,n);
     while(!testResidu(r,n)){
         for(int i(0);i<n;i++){
-            for(int k=0;k<n;k++){
+            for(int k(0);k<n;k++){
                 s+=A[i][k]*x[k];
             }
             r[i] = b[i] - s;
             x[i] += r[i]/A[i][i];
             s=0;
+            
+            cout<<"Pour la "<<i<<"ème itération, une approximation de la solution est: "<<endl;
+            for(int l(0);l<n;l++){
+                cout<<x[l]<<endl;
+            }
+
         }
     }
 
-    cout<<endl<<"Ainsi, les solutions de cette équation sont:"<<endl;
+    cout<<endl<<"La condition d'arret étant maintenant vérifiée, les solutions approximatif de cette équation sont:"<<endl;
 
     for(int i(0);i<n;i++){
         cout<<"x"<<i<<" = "<<x[i]<<endl;
